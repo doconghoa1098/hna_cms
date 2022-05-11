@@ -7,7 +7,7 @@ use App\Models\Maker;
 use App\Models\News;
 use App\Models\Product;
 use Illuminate\Database\Seeder;
-use App\Models\Category;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(20)->create();
+         \App\Models\User::factory(20)->create();
         // News::factory(10)->create();
         // Maker::factory(10)->create();
         // Product::factory(10)->create();

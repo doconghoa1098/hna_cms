@@ -18,6 +18,9 @@
 <body>
     <div id="app">
         @include('components.header')
+            @if(session('message') != null)
+                <div class="btn btn-success">{{ session('message') }}</div>
+            @endif
         <main class="py-4">
             @yield('content')
         </main>

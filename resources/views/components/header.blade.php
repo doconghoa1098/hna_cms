@@ -99,9 +99,8 @@
             </a>
             <div id="collapseUsers" class="collapse" aria-labelledby="headingUsers" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="#">Views</a>
-                <a class="collapse-item" href="#">List</a>
-                <a class="collapse-item" href="#">Edit</a>
+                <a class="collapse-item" href="{{ route('users.create') }}">Add user</a>
+                <a class="collapse-item" href="{{ route('users.index') }}">List</a>
             </div>
             </div>
         </li>

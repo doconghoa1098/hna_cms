@@ -5,6 +5,7 @@ use App\Models\News;
 use App\Models\User;
 use App\Http\Controllers\NewController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,9 @@ Route::get('/', function () {
     return view('welcome', compact('news', 'users'));
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('users', UserController::class);
+
