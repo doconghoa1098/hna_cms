@@ -2,6 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
+use App\Models\Maker;
+use App\Models\News;
+use App\Models\Product;
 use Illuminate\Database\Seeder;
 use App\Models\Category;
 class DatabaseSeeder extends Seeder
@@ -13,10 +17,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(40)->create();
-        // \App\Models\News::factory(50)->create();
-        // Category::factory(10)->create()->each(function ($category) {
-		// 	Category::factory(5)->create(['parent_id'=>$category->id]);
-		// });
+        // \App\Models\User::factory(20)->create();
+        // News::factory(10)->create();
+        // Maker::factory(10)->create();
+        // Product::factory(10)->create();
+        // Category::factory(10)->create();
+        
     }
 }

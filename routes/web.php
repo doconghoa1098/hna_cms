@@ -24,7 +24,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('homepage', [HomePageController::class, 'index'])->name('homepage.index');
 
-Route::resource('categories',CategoryController::class);
+Auth::routes();
 
 Route::resource('news', NewController::class);
 
