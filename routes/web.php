@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
-use App\Models\News;
-use App\Models\User;
 use App\Http\Controllers\NewController;
+use App\Http\Controllers\HomePageController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,13 +17,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    $news = News::orderByDesc('id')->paginate(10);
-    $users = User::orderByDesc('id')->paginate(10);
+Auth::routes();
 
-    return view('welcome', compact('news', 'users'));
-});
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get('homepage', [HomePageController::class, 'index'])->name('homepage.index');
 
 Route::resource('categories',CategoryController::class);
 
 Route::resource('news', NewController::class);
+
