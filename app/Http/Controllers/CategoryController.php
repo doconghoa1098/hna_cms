@@ -22,6 +22,10 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
+        $categories = Category::whereNull('parent_id')
+            ->with('childrenCategories')
+            ->get();
+        // dd($categories);
         $pagesize = config('common.default_page_size');
         $categoryQuery = Category::where('name', 'like', "%".$this->escapeService->escape_like($request->keyword)."%");
                     // ->orWhere('c', 'like', "%".$this->escapeService->escape_like($request->keyword)."%");

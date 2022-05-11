@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+
 <form action="{{route('news.update',['news'=>$news->id])}}" method="post" enctype="multipart/form-data">
     @csrf
     @method('PUT')
@@ -39,3 +43,4 @@
         <button type="submit" class="btn btn-success">Save</button>
     </div>
 </form>
+@endsection

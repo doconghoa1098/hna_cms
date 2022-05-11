@@ -60,7 +60,7 @@ class NewController extends Controller
 
         if($request->hasFile('file_upload')) {
             $newFileName = uniqid() . '-' . $request->file_upload->getClientOriginalName();
-            $imagePath = $request->file_upload->storeAs('public/uploads/news', $newFileName);
+            $imagePath = $request->file_upload->storeAs('public/images/news', $newFileName);
             $new->image = str_replace('public/', '', $imagePath);
         }
         $new->save();
@@ -108,7 +108,7 @@ class NewController extends Controller
 
         if($request->hasFile('file_upload')) {
             $newFileName = uniqid() . '-' . $request->file_upload->getClientOriginalName();
-            $imagePath = $request->file_upload->storeAs('public/uploads/users', $newFileName);
+            $imagePath = $request->file_upload->storeAs('public/images/news', $newFileName);
             $new->image = str_replace('public/', '', $imagePath);
         }
         $new->fill($request->all());

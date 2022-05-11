@@ -51,11 +51,11 @@
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
 
-        <!-- Nav Item - Dashboard -->
+        <!-- Nav Item - Home Page -->
         <li class="nav-item active">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('homepage.index') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
+            <span>Home Page</span></a>
         </li>
 
         <!-- Divider -->
@@ -63,17 +63,10 @@
 
         <!-- Nav Item - Pages Categories Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategories" aria-expanded="true" aria-controls="collapseCategories">
+            <a class="nav-link collapsed" href="{{ route('categories.index') }}" data-target="#collapseNews" aria-expanded="true" aria-controls="collapseNews">
                 <i class="fas fa-fw fa-cog"></i>
                 <span>Categories</span>
             </a>
-            <div id="collapseCategories" class="collapse" aria-labelledby="headingCategories" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="#">Views</a>
-                <a class="collapse-item" href="#">List</a>
-                <a class="collapse-item" href="#">Edit</a>
-            </div>
-            </div>
         </li>
 
         <!-- Nav Item - Pages Products Menu -->
@@ -105,6 +98,15 @@
             </div>
             </div>
         </li>
+
+        <!-- Nav Item - Pages News Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('news.index') }}" data-target="#collapseNews" aria-expanded="true" aria-controls="collapseNews">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>News</span>
+            </a>
+        </li>
+
         <hr class="sidebar-divider d-none d-md-block">
 
         <!-- Sidebar Toggler (Sidebar) -->
