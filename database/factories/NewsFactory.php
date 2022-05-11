@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\User;
-use App\Models\News;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class NewsFactory extends Factory
@@ -13,19 +12,13 @@ class NewsFactory extends Factory
      *
      * @return array
      */
-
-    protected $model = News::class;
-
     public function definition()
     {
-        $imgPath = $this->faker->image(storage_path('app/public/uploads/news'), $width = 640, $height = 480, 'cats', false);
-        
         return [
-            "title" => $this->faker->title(),
-            "author_id" => User::all()->random()->id,
-            "image" =>  "uploads/news/" . $imgPath,
-            'title' => $this->faker->title(),
-            'content' => $this->faker->paragraph()
+            'title' => $this->faker->title,
+            'content' => $this->faker->paragraph,
+            'image' =>  $this->faker->image('storage/app/public/images/news', 640, 480, null, false),
+            'author_id' => User::all()->random()->id,
         ];
     }
 }

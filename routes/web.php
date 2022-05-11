@@ -24,6 +24,6 @@ Route::get('/', function () {
     return view('welcome', compact('news', 'users'));
 });
 
-Route::resource('categories',CategoryController::class);
+Auth::routes();
 
-Route::resource('news', NewController::class);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

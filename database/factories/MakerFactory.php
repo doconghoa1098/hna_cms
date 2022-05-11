@@ -2,10 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class CategoryFactory extends Factory
+class MakerFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,10 +13,10 @@ class CategoryFactory extends Factory
      */
     public function definition()
     {
-        $ids = Category::pluck('id')->toArray();
         return [
+            'code' => $this->faker->regexify('[A-Za-z0-9]{5,20}'),
             'name' => $this->faker->name,
-            'parent_id' => empty($ids) ? null : $this->faker->optional(0.9, null)->randomElement($ids),
+            'image' =>  $this->faker->image('storage/app/public/images/makers', 640, 480, null, false),
         ];
     }
 }
