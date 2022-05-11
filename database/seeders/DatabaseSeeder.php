@@ -7,7 +7,7 @@ use App\Models\Maker;
 use App\Models\News;
 use App\Models\Product;
 use Illuminate\Database\Seeder;
-
+use App\Models\Category;
 class DatabaseSeeder extends Seeder
 {
     /**

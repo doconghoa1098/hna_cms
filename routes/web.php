@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Models\News;
+use App\Models\User;
+use App\Http\Controllers\NewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +18,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $news = News::orderByDesc('id')->paginate(10);
+    $users = User::orderByDesc('id')->paginate(10);
+
+    return view('welcome', compact('news', 'users'));
 });
 
 Auth::routes();
