@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Http\Service\EscapeService;
+use App\Models\Category;
+use App\Models\Maker;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -12,11 +15,27 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public $escapeService;
+    public function __construct(EscapeService $escapeService)
     {
-        $products = Product::paginate(5);
+        $this->escapeService = $escapeService;
+    }
 
-        return view('product.index', compact('products'));
+    public function index(Request $request)
+    {
+        $keyword = $request->keyword;
+        $products = Product::where('name', 'like', "%" . $this->escapeService->escape_like($keyword) . "%");
+        if ($request->maker) 
+        {
+            $products->where('maker_id',$request->maker);
+        }
+
+        $products = $products->latest()->paginate(config('common.default_page_size'))->appends($request->except('page'));
+
+        $makers = Maker::all();
+        $categories = Category::all();
+
+        return view('product.index', compact('products', 'keyword', 'makers', 'categories'));
     }
 
     /**

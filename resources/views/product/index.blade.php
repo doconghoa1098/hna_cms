@@ -9,9 +9,31 @@
         <div class="card-header py-3 d-flex justify-content-between">
             <form class="d-sm-inline-block form-inline mr-auto my-2 my-md-0 ">
                 <div class="input-group">
-                    <input type="text" class="form-control form-outline" placeholder="Search..." aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="form-group">
+                        <input type="search" id="form1" class="form-control form-outline" placeholder="Search of product" aria-label="Search" name="keyword" value="{{ $keyword }}">
+                    </div>
+                    <div class="form-group">
+                        <select name="maker" class="form-control">
+                            <option value="">Maker</option>
+                            @if(isset($makers))
+                            @foreach($makers as $maker)
+                            <option value="{{ $maker->id }}" {{ \Request::get('maker') == $maker->id ? "selected ='selected'" : "" }}> {{ $maker->name }} </option>
+                            @endforeach
+                            @endif
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select name="cate" class="form-control">
+                            <option value="">Category</option>
+                            @if(isset($categories))
+                            @foreach($categories as $category)
+                            <option value="{{ $category->id }}" {{ \Request::get('cate') == $category->id ? "selected ='selected'" : "" }}> {{ $category->name }} </option>
+                            @endforeach
+                            @endif
+                        </select>
+                    </div>
                     <div class="input-group-append">
-                        <button class="btn btn-primary" type="button"> <i class="fas fa-search fa-sm"></i> </button>
+                        <button class="btn btn-primary" type="submit"> <i class="fas fa-search fa-sm"></i> </button>
                     </div>
                 </div>
             </form>
