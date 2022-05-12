@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\NewController;
 use App\Http\Controllers\HomePageController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -21,10 +22,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
 Route::get('homepage', [HomePageController::class, 'index'])->name('homepage.index');
-
-Auth::routes();
 
 Route::resource('news', NewController::class);
 
+Route::resource('products', ProductController::class);

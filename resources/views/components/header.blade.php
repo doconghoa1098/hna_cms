@@ -63,7 +63,7 @@
 
         <!-- Nav Item - Pages Categories Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('categories.index') }}" data-target="#collapseNews" aria-expanded="true" aria-controls="collapseNews">
+            <a class="nav-link collapsed" href="#" data-target="#collapseNews" aria-expanded="true" aria-controls="collapseNews">
                 <i class="fas fa-fw fa-cog"></i>
                 <span>Categories</span>
             </a>
@@ -71,13 +71,13 @@
 
         <!-- Nav Item - Pages Products Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="true" aria-controls="collapseProducts">
+            <a class="nav-link collapsed" href="{{ route('products.index') }}" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="true" aria-controls="collapseProducts">
                 <i class="fas fa-fw fa-wrench"></i>
                 <span>Products</span>
             </a>
             <div id="collapseProducts" class="collapse" aria-labelledby="headingProducts" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="#">Views</a>
+                <a class="collapse-item" href="{{ route('products.index') }}">Views</a>
                 <a class="collapse-item" href="#">List</a>
                 <a class="collapse-item" href="#">Edit</a>
             </div>
