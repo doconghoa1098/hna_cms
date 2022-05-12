@@ -11,7 +11,7 @@
                     <input type="search" name="keyword" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
+                            <i class="fas fa-search fa-sm"></i>
                         </button>
                     </div>
                 </div>
@@ -28,29 +28,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($users as $val)
+                    @foreach($users as $val)
                     <tr>
                         <td>{{ $val->id }}</td>
                         <td>{{ $val->name }}</td>
                         <td>{{ $val->email }}</td>
-                        <td> 
-                            <?php if ($val->role == '1') {
-                                echo 'Admin';
-                            } ?>
-                            <?php if ($val->role == '0') {
-                                echo 'User';
-                            } ?>
-                        <td><img src="{{asset('storage/images/users/' . $val->image)}}" alt="" style="width: 100px; height: 100px"></td>
+                        <td>
+                            {{$val->isAdmin($val->role)}}
+                        <td><img src="{{ \App\Http\Helpers\Helper::getPath('users',$val->image) }}" alt="" style="width: 100px; height: 100px"></td>
                         <td>
                             <a class="btn btn-primary" href="{{ asset('users/'.$val->id.'/edit') }}">Edit</a>
                             <form action="{{ route('users.destroy', ['user' => $val->id]) }}" method="post">
                                 @csrf
                                 @method('Delete')
-                                <input type="submit" class="btn btn-danger"  value="Delete" onclick="return confirm('Do you really want to delete?')"/>
+                                <input type="submit" class="btn btn-danger" value="Delete" onclick="return confirm('Do you really want to delete?')" />
                             </form>
                         </td>
                     </tr>
-                @endforeach
+                    @endforeach
                 </tbody>
             </table>
             {{$users->appends(request()->query())->links()}}

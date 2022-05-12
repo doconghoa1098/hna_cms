@@ -21,6 +21,7 @@
             @if(session('message') != null)
                 <div class="btn btn-success">{{ session('message') }}</div>
             @endif
+            @include('errors.note')
         <main class="py-4">
             @yield('content')
         </main>

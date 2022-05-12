@@ -22,9 +22,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'image',
-        'role',
-
     ];
 
     /**
@@ -45,4 +42,9 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isAdmin($role)
+    {
+        return ($role == 1)?"Admin":"User";
+    }
 }

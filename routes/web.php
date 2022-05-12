@@ -5,6 +5,7 @@ use App\Models\News;
 use App\Models\User;
 use App\Http\Controllers\NewController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
 
 /*
@@ -27,7 +28,8 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('verified')->name('home');
 
-Route::resource('users', UserController::class);
+Route::resource('users', UserController::class)->middleware('verified');
+
 

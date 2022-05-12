@@ -5,9 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Service\EscapeService;
+use App\Http\Requests\formUserRequest;
 
 class UserController extends Controller
 {
+
+    public $escapeService;
+
+    public function __construct(EscapeService $escapeService)
+    {
+        $this->escapeService = $escapeService;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -15,17 +26,12 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $user = new User();
-        $users = $user->Paginate($user::PAGINATE_SIZE);
-
         $keyWord = $request->input('keyword');
-        $users = User::where('name', 'like', "%$keyWord%")
-            ->orWhere('email', 'like', "%$keyWord%")
-            ->orWhere('id', 'like', "%$keyWord%")
+        $users = user::where('name', 'like', "%" . $this->escapeService->escape_like($keyWord) . "%")
             ->orderBy('id', 'desc')
-            ->paginate($user::PAGINATE_SIZE);
+            ->paginate(user::PAGINATE_SIZE);
 
-        return view('users.index',compact('users','keyWord'));
+        return view('users.index', compact('users', 'keyWord'));
     }
 
     /**
@@ -44,19 +50,16 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(formUserRequest $request)
     {
-        $email = $request->email;
-        $name = $request->name;
-        $password = $request->password;
-        $role = $request->role;
         $user = User::create([
-            'email' => $email,
-            'name' => $name,
-            'role' => $role,
-            'password' => Hash::make($password) 
+            'email' => $request->email,
+            'name' => $request->name,
+            'role' => $request->role,
+            'password' => Hash::make($request->passwordd)
         ]);
-        if($request->hasFile('image')) {
+
+        if ($request->hasFile('image')) {
             $newFileName = uniqid() . '-' . $request->image->getClientOriginalName();
             $imagePath = $request->image->storeAs('public/images/users', $newFileName);
             $user->image = str_replace('public/images/users', '', $imagePath);
@@ -86,8 +89,8 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        
-        return view('users.edit',compact('user'));
+
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -97,12 +100,18 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(formUserRequest $request, $id)
     {
         $user = User::findOrFail($id);
 
-        $user->fill($request->all());
-        if($request->hasFile('image')) {
+        $user->fill([
+            'email' => $request->email,
+            'name' => $request->name,
+            'role' => $request->role,
+            'password' => Hash::make($request->password)
+        ]);
+
+        if ($request->hasFile('image')) {
             $newFileName = uniqid() . '-' . $request->image->getClientOriginalName();
             $imagePath = $request->image->storeAs('public/images/users', $newFileName);
             $user->image = str_replace('public/images/users', '', $imagePath);
