@@ -62,12 +62,6 @@
         <hr class="sidebar-divider">
 
         <!-- Nav Item - Pages Categories Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('categories.index') }}" data-target="#collapseNews" aria-expanded="true" aria-controls="collapseNews">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Categories</span>
-            </a>
-        </li>
 
         <!-- Nav Item - Pages Products Menu -->
         <li class="nav-item">
