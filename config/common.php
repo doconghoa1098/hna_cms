@@ -5,4 +5,5 @@ return [
     'default_image_path' => "public/images/news"
 ]
 
+
 ?>
