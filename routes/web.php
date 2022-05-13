@@ -26,10 +26,10 @@ Route::get('/', function () {
     return view('welcome', compact('news', 'users'));
 });
 
+Route::resource('news', NewController::class);
+
 Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('verified')->name('home');
 
 Route::resource('users', UserController::class)->middleware('verified');
-
-
