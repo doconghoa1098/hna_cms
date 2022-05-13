@@ -62,7 +62,6 @@
         <hr class="sidebar-divider">
 
         <!-- Nav Item - Pages Categories Menu -->
-        
 
         <!-- Nav Item - Pages Products Menu -->
         <li class="nav-item">
