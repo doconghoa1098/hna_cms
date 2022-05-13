@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helpers\Helper;
 use App\Models\Product;
-use App\Http\Service\EscapeService;
 use App\Models\Category;
 use App\Models\Maker;
 use Illuminate\Http\Request;
@@ -15,16 +15,11 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $escapeService;
-    public function __construct(EscapeService $escapeService)
-    {
-        $this->escapeService = $escapeService;
-    }
 
     public function index(Request $request)
     {
         $keyword = $request->keyword;
-        $products = Product::where('name', 'like', "%" . $this->escapeService->escape_like($keyword) . "%");
+        $products = Product::where('name', 'like', "%" . Helper::escape_like($keyword) . "%");
         if ($request->has('marker')) 
         {
             $products->where('maker_id', $request->maker);
