@@ -23,7 +23,7 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('homepage', [HomePageController::class, 'index'])->name('homepage.index');
-
+Route::resource('categories', CategoryController::class);
 Route::resource('news', NewController::class);
 
 Route::resource('products', ProductController::class);

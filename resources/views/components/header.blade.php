@@ -63,7 +63,7 @@
 
         <!-- Nav Item - Pages Categories Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-target="#collapseNews" aria-expanded="true" aria-controls="collapseNews">
+            <a class="nav-link collapsed" href="{{ route('categories.index') }}" data-target="#collapseNews" aria-expanded="true" aria-controls="collapseNews">
                 <i class="fas fa-fw fa-cog"></i>
                 <span>Categories</span>
             </a>

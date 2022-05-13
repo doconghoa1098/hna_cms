@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Http\Service\EscapeService;
+use App\Http\Helpers\Helper;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -13,26 +13,16 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-    public $escapeService;
-    public function __construct(EscapeService $escapeService)
-    {
-        $this->escapeService = $escapeService;
-    }
-
     public function index(Request $request)
     {
-        $categories = Category::whereNull('parent_id')
-            ->with('childrenCategories')
-            ->get();
-        // dd($categories);
+        $categories = Category::with('parent');
+
         $pagesize = config('common.default_page_size');
-        $categoryQuery = Category::where('name', 'like', "%".$this->escapeService->escape_like($request->keyword)."%");
-                    // ->orWhere('c', 'like', "%".$this->escapeService->escape_like($request->keyword)."%");
+        $categoryQuery = Category::where('name', 'like', "%" . Helper::escape_like($request->keyword) . "%");
         $categories = $categoryQuery->paginate($pagesize);
         $categories->appends($request->except('page'));
 
-        return view('category.index', compact('categories'));
+        return view('categories.index', compact('categories'));
     }
 
     /**
