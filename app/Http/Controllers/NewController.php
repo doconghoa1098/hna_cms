@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\News;
 use App\Models\User;
+use App\Http\Helpers\Helper;
 use App\Http\Requests\NewFormRequest;
-use App\Http\Service\EscapeService;
 use Illuminate\Http\Request;
 
 class NewController extends Controller
@@ -15,24 +15,17 @@ class NewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $escapeService;
-    public function __construct(EscapeService $escapeService)
-    {
-        $this->escapeService = $escapeService;
-    }
-
 
     public function index(Request $request)
     {
-        $pagesize = config('common.default_page_size');
-        $newQuery = News::where('title', 'like', "%".$this->escapeService->escape_like($request->keyword)."%")
-                    ->orWhere('content', 'like', "%".$this->escapeService->escape_like($request->keyword)."%");
-        $news = $newQuery->paginate($pagesize);
+        $newQuery = News::where('title', 'like', "%" . Helper::escape_like($request->keyword) . "%")
+            ->orWhere('content', 'like', "%" . Helper::escape_like($request->keyword) . "%");
+        $news = $newQuery->paginate(config('common.default_page_size'));
         $news->appends($request->except('page'));
-        
+
         $users = User::all();
 
-        return view('news.index', compact('news', 'users')); 
+        return view('news.index', compact('news', 'users'));
     }
 
     /**
@@ -58,13 +51,13 @@ class NewController extends Controller
         $new = new News();
         $new->fill($request->all());
 
-        if($request->hasFile('file_upload')) {
+        if ($request->hasFile('file_upload')) {
             $newFileName = uniqid() . '-' . $request->file_upload->getClientOriginalName();
-            $imagePath = $request->file_upload->storeAs('public/images/news', $newFileName);
-            $new->image = str_replace('public/', '', $imagePath);
+            $imagePath = $request->file_upload->storeAs(config('common.default_image_path'), $newFileName);
+            $new->image = str_replace(config('common.default_image_path'), '', $imagePath);
         }
         $new->save();
-        
+
         return redirect(route('news.index'))->with(['message' => 'Create Success']);;
     }
 
@@ -106,10 +99,10 @@ class NewController extends Controller
     {
         $new = News::findOrFail($id);
 
-        if($request->hasFile('file_upload')) {
+        if ($request->hasFile('file_upload')) {
             $newFileName = uniqid() . '-' . $request->file_upload->getClientOriginalName();
-            $imagePath = $request->file_upload->storeAs(config('common.default_image_path'), $newFileName);
-            $new->image = str_replace(config('common.default_image_path'), '', $imagePath);
+            $imagePath = $request->file_upload->storeAs('public/images/news', $newFileName);
+            $new->image = str_replace('public/images/news', '', $imagePath);
         }
         $new->fill($request->all());
         $new->save();
@@ -126,7 +119,7 @@ class NewController extends Controller
     public function destroy($id)
     {
         News::findOrFail($id)->delete();
-    
+
         return redirect()->route('news.index')->with(['message' => 'Delete Success']);
     }
 }
