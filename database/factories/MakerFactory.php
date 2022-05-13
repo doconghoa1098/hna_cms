@@ -14,7 +14,7 @@ class MakerFactory extends Factory
     public function definition()
     {
         return [
-            'code' => $this->faker->regexify('[A-Za-z0-9]{5,20}'),
+            'code' => $this->faker->regexify('[A-Z0-9]{5,20}'),
             'name' => $this->faker->name,
             'image' =>  $this->faker->image('storage/app/public/images/makers', 640, 480, null, false),
         ];
