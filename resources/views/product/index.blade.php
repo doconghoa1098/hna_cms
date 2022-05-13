@@ -10,7 +10,7 @@
             <form class="d-sm-inline-block form-inline mr-auto my-2 my-md-0 ">
                 <div class="input-group">
                     <div class="form-group">
-                        <input type="search" id="form1" class="form-control form-outline" placeholder="Search of product" aria-label="Search" name="keyword" value="{{ $keyword }}">
+                        <input type="search" class="form-control form-outline" placeholder="Search of product" aria-label="Search" name="keyword" value="{{ $keyword }}">
                     </div>
                     <div class="form-group">
                         <select name="maker" class="form-control">
@@ -56,7 +56,7 @@
                         <tr>
                             <td>{{ (($products->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
                             <td>{{ $product->name }}</td>
-                            <td>{{ $product->code }}</td>
+                            <td>{{ $product->maker->name }}</td>
                             <td>
                                 <img src="{{asset('storage/images/products/' . $product->image)}}" class="img-fluid">
                             </td>

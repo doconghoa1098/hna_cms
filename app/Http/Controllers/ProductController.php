@@ -25,9 +25,9 @@ class ProductController extends Controller
     {
         $keyword = $request->keyword;
         $products = Product::where('name', 'like', "%" . $this->escapeService->escape_like($keyword) . "%");
-        if ($request->maker) 
+        if ($request->has('marker')) 
         {
-            $products->where('maker_id',$request->maker);
+            $products->where('maker_id', $request->maker);
         }
 
         $products = $products->latest()->paginate(config('common.default_page_size'))->appends($request->except('page'));

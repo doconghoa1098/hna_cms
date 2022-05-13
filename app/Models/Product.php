@@ -12,8 +12,9 @@ class Product extends Model
 
     protected $table = 'products';
 
-    public function user(){
-        
+    public function maker()
+    {
+
         return $this->belongsTo(Maker::class, 'maker_id');
     }
 }
