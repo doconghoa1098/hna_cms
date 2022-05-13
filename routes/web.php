@@ -23,6 +23,6 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
 
 Route::get('homepage', [HomePageController::class, 'index'])->name('homepage.index');
-
+Route::resource('categories', CategoryController::class);
 Route::resource('news', NewController::class);
 

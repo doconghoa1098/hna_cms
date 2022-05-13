@@ -101,8 +101,8 @@ class NewController extends Controller
 
         if ($request->hasFile('file_upload')) {
             $newFileName = uniqid() . '-' . $request->file_upload->getClientOriginalName();
-            $imagePath = $request->file_upload->storeAs('public/images/news', $newFileName);
-            $new->image = str_replace('public/images/news', '', $imagePath);
+            $imagePath = $request->file_upload->storeAs(config('common.default_image_path'), $newFileName);
+            $new->image = str_replace(config('common.default_image_path'), '', $imagePath);
         }
         $new->fill($request->all());
         $new->save();
