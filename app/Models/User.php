@@ -12,7 +12,7 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    const PAGINATE_SIZE = 10;
+    const ADMIN_ROLE = 1;
     /**
      * The attributes that are mass assignable.
      *
@@ -22,6 +22,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'role'
     ];
 
     /**
@@ -45,6 +46,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isAdmin($role)
     {
-        return ($role == 1)?"Admin":"User";
+        return ($role == User::ADMIN_ROLE) ? "Admin" : "User";
     }
 }

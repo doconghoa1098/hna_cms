@@ -33,8 +33,7 @@
                         <td>{{ $val->id }}</td>
                         <td>{{ $val->name }}</td>
                         <td>{{ $val->email }}</td>
-                        <td>
-                            {{$val->isAdmin($val->role)}}
+                        <td>{{ $val->isAdmin($val->role) }}</td>
                         <td><img src="{{ \App\Http\Helpers\Helper::getPath('users',$val->image) }}" alt="" style="width: 100px; height: 100px"></td>
                         <td>
                             <a class="btn btn-primary" href="{{ asset('users/'.$val->id.'/edit') }}">Edit</a>

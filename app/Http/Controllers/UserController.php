@@ -2,23 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserFormRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Service\EscapeService;
-use App\Http\Requests\formUserRequest;
+use Illuminate\Auth\Events\Registered;
+use App\Http\Helpers\Helper;
+
 
 class UserController extends Controller
 {
-
-    public $escapeService;
-
-    public function __construct(EscapeService $escapeService)
-    {
-        $this->escapeService = $escapeService;
-    }
-
-
     /**
      * Display a listing of the resource.
      *
@@ -27,9 +20,9 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $keyWord = $request->input('keyword');
-        $users = user::where('name', 'like', "%" . $this->escapeService->escape_like($keyWord) . "%")
-            ->orderBy('id', 'desc')
-            ->paginate(user::PAGINATE_SIZE);
+        $users = user::where('name', 'like', "%" . Helper::escape_like($keyWord) . "%")
+            ->latest()
+            ->paginate(config('common.default_page_size'));
 
         return view('users.index', compact('users', 'keyWord'));
     }
@@ -50,7 +43,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(formUserRequest $request)
+    public function store(UserFormRequest $request)
     {
         $user = User::create([
             'email' => $request->email,
@@ -65,6 +58,7 @@ class UserController extends Controller
             $user->image = str_replace('public/images/users', '', $imagePath);
         }
         $user->save();
+        event(new Registered($user));
 
         return redirect('/users')->with(['message' => 'Add Success']);
     }
@@ -100,7 +94,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(formUserRequest $request, $id)
+    public function update(UserFormRequest $request, $id)
     {
         $user = User::findOrFail($id);
 
