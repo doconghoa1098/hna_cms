@@ -22,7 +22,7 @@ class CategoryController extends Controller
         $categories = $categoryQuery->paginate($pagesize);
         $categories->appends($request->except('page'));
 
-        return view('categories.index', compact('categories'));
+        return view('category.index', compact('categories'));
     }
 
     /**
