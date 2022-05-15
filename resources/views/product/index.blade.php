@@ -56,7 +56,7 @@
                         <tr>
                             <td>{{ (($products->currentPage()-1)*config('common.default_page_size')) + $loop->iteration }}</td>
                             <td>{{ $product->name }}</td>
-                            <td>{{ $product->maker->name }}</td>
+                            <td>{{ $product->code }}</td>
                             <td>
                                 <img src="{{asset('storage/images/products/' . $product->image)}}" class="img-fluid">
                             </td>
