@@ -4,10 +4,10 @@ namespace App\Http\Helpers;
 
 class Helper
 {
-    public function getPath($path, $imagePath)
+    public static function getPath($path, $imagePath)
     {
 
-        return 'storage/images/' . $path . '' . $imagePath;
+        return 'storage/images/' . $path . '/' . $imagePath;
     }
 
     public function escape_like($string)

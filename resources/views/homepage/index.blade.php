@@ -20,7 +20,7 @@
                 <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
                 </div>
                 <div class="col-auto">
-                    <img src="{{asset('storage/' . $item->image)}}" width="120">
+                    <img src="{{ \App\Http\Helpers\Helper::getPath('news',$item->image) }}" width="120">
                 </div>
             </div>
             </div>
@@ -70,7 +70,7 @@
                 <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $item->price }}</div>
                 </div>
                 <div class="col-auto">
-                    <img src="{{asset('storage/' . $item->image)}}" width="120">
+                    <img src="{{ \App\Http\Helpers\Helper::getPath('products',$item->image) }}" width="120">
                 </div>
             </div>
             </div>
