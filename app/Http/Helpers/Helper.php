@@ -17,4 +17,6 @@ class Helper
 
         return str_replace($search, $replace, $string);
     }
+
+    
 }

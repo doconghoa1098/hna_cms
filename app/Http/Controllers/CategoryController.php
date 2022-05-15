@@ -32,7 +32,11 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $categoryParents = Category::whereNull('parent_id')
+            ->with('children')
+            ->get();
+
+        return view('categories.create', compact('categoryParents'));
     }
 
     /**
@@ -43,7 +47,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = new Category();
+        $category->fill($request->all());
+
+        $category->save();
+
+        return redirect(route('categories.index'))->with(['message' => 'Create Success']);
     }
 
     /**
