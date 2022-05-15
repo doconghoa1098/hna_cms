@@ -10,7 +10,7 @@ class Helper
         return 'storage/images/' . $path . '/' . $imagePath;
     }
 
-    public function escape_like($string)
+    public static function escape_like($string)
     {
         $search = array('%', '_');
         $replace   = array('\%', '\_');
