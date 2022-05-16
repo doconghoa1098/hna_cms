@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Http\Helpers\Helper;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\Maker;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,14 +18,19 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
-        $categories = Category::with('parent');
+        $keyword = $request->keyword;
+        $products = Product::where('name', 'like', "%" . Helper::escape_like($keyword) . "%");
+        if ($request->get('maker'))
+        {
+            $products->where('maker_id', $request->maker);
+        }
 
-        $pagesize = config('common.default_page_size');
-        $categoryQuery = Category::where('name', 'like', "%" . Helper::escape_like($request->keyword) . "%");
-        $categories = $categoryQuery->paginate($pagesize);
-        $categories->appends($request->except('page'));
+        $products = $products->latest()->paginate(config('common.default_page_size'))->appends($request->except('page'));
 
-        return view('category.index', compact('categories'));
+        $makers = Maker::all();
+        $categories = Category::all();
+
+        return view('product.index', compact('products', 'keyword', 'makers', 'categories'));
     }
 
     /**

@@ -1,3 +1,6 @@
+@extends('layouts.app')
+
+@section('content')
 <div class="card mb-3" style="width: 50rem;">
     <div class="row g-0">
         <div class="col-md-4">
@@ -14,3 +17,4 @@
             </ul>
         </div>
 </div>
+@endsection

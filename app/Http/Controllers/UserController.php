@@ -54,8 +54,8 @@ class UserController extends Controller
 
         if ($request->hasFile('image')) {
             $newFileName = uniqid() . '-' . $request->image->getClientOriginalName();
-            $imagePath = $request->image->storeAs('public/images/users', $newFileName);
-            $user->image = str_replace('public/images/users', '', $imagePath);
+            $imagePath = $request->image->storeAs(config('common.default_image_path') . 'users', $newFileName);
+            $user->image = str_replace(config('common.default_image_path') . 'users', '', $imagePath);
         }
         $user->save();
         event(new Registered($user));
@@ -107,12 +107,12 @@ class UserController extends Controller
 
         if ($request->hasFile('image')) {
             $newFileName = uniqid() . '-' . $request->image->getClientOriginalName();
-            $imagePath = $request->image->storeAs('public/images/users', $newFileName);
-            $user->image = str_replace('public/images/users', '', $imagePath);
+            $imagePath = $request->image->storeAs(config('common.default_image_path') . 'users', $newFileName);
+            $user->image = str_replace(config('common.default_image_path') . 'users', '', $imagePath);
         }
         $user->save();
 
-        return redirect('/users')->with(['message' => 'Update Success']);;
+        return redirect('/users')->with(['message' => 'Update Success']);
     }
 
     /**
