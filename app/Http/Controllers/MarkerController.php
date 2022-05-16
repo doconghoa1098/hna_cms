@@ -54,7 +54,7 @@ class MarkerController extends Controller
         }
         $marker->save();
 
-        return redirect('/markes')->with(['message' => 'Add Success']);
+        return redirect('/makers')->with(['message' => 'Add Success']);
     }
 
     /**
