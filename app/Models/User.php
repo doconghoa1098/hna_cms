@@ -44,7 +44,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function isAdmin($role)
+    public function role($role)
     {
         return ($role == User::ADMIN_ROLE) ? "Admin" : "User";
     }
