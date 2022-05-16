@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
 <form action="{{ route('news.store') }}" method="post" enctype="multipart/form-data">
     @csrf
     @method('POST')
@@ -39,7 +38,7 @@
                 @enderror
             </div>
         </div>
-        
+
 
         <div class="col-12 d-flex justify-content-end">
             <button class="btn btn-primary" type="submit">Save</button>

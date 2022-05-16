@@ -1,4 +1,5 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,11 +14,13 @@
 
     <!-- Styles -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/4.0.0/css/sb-admin-2.min.css" rel="stylesheet" media="all">
-    
+
 </head>
+
 <body>
     <div id="app">
         @include('components.header')
+        @include('components.message')
         <main class="py-4">
             @include('components.message')
             @yield('content')
@@ -25,4 +28,5 @@
         @include('components.footer')
     </div>
 </body>
+
 </html>
