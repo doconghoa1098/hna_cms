@@ -15,4 +15,6 @@ class Helper
         $replace   = array('\%', '\_');
         return str_replace($search, $replace, $string);
     }
+
+    
 }

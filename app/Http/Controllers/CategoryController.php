@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Http\Requests\CategoryFormRequest;
 use App\Http\Helpers\Helper;
 use Illuminate\Http\Request;
 
@@ -33,7 +34,11 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $categoryParents = Category::whereNull('parent_id')
+            ->with('children')
+            ->get();
+
+        return view('category.create', compact('categoryParents'));
     }
 
     /**
@@ -42,9 +47,14 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryFormRequest $request)
     {
-        //
+        $category = new Category();
+        $category->fill($request->all());
+
+        $category->save();
+
+        return redirect(route('categories.index'))->with(['message' => 'Create Success']);
     }
 
     /**
