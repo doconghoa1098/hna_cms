@@ -20,7 +20,6 @@
 <body>
     <div id="app">
         @include('components.header')
-        @include('components.message')
         <main class="py-4">
             @include('components.message')
             @yield('content')

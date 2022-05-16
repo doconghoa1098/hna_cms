@@ -16,7 +16,7 @@ class MakerFactory extends Factory
         return [
             'code' => $this->faker->regexify('[A-Z0-9]{5,20}'),
             'name' => $this->faker->name,
-            'image' =>  $this->faker->image('storage/app/public/images/makers', 640, 480, null, false),
+            'image' =>  $this->faker->image('storage/app/public/images/markers', 640, 480, null, false),
         ];
     }
 }
