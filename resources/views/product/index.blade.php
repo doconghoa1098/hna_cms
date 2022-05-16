@@ -58,7 +58,7 @@
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->code }}</td>
                             <td>
-                                <img src="{{asset('storage/images/products/' . $product->image)}}" class="img-fluid">
+                                <img src="{{ \App\Http\Helpers\Helper::getPath('products', $product->image) }}" class="img-fluid">
                             </td>
                             <td>
                                 <a href="#" class="btn btn-success"><i class="fa fa-eye"></i> Detail</a>

@@ -1,8 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
-use App\Models\News;
-use App\Models\User;
+use App\Http\Controllers\ContentController;
 use App\Http\Controllers\NewController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\MarkerController;
@@ -27,7 +26,7 @@ Auth::routes(['verify' => true]);
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// Route::get('homepage', [HomePageController::class, 'index'])->name('homepage.index');
+Route::get('homepage', [HomePageController::class, 'index'])->name('homepage.index');
 
 Route::resource('categories', CategoryController::class);
 
@@ -38,3 +37,5 @@ Route::resource('products', ProductController::class);
 Route::resource('users', UserController::class)->middleware('verified');
 
 Route::resource('markers', MarkerController::class);
+
+Route::post('upload', [ContentController::class, 'upload'])->name('upload');
