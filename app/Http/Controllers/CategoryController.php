@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Http\Requests\CategoryFormRequest;
 use App\Http\Helpers\Helper;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,7 @@ class CategoryController extends Controller
         $categories = $categoryQuery->paginate($pagesize);
         $categories->appends($request->except('page'));
 
-        return view('categories.index', compact('categories'));
+        return view('category.index', compact('categories'));
     }
 
     /**
@@ -36,7 +37,7 @@ class CategoryController extends Controller
             ->with('children')
             ->get();
 
-        return view('categories.create', compact('categoryParents'));
+        return view('category.create', compact('categoryParents'));
     }
 
     /**
@@ -45,7 +46,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryFormRequest $request)
     {
         $category = new Category();
         $category->fill($request->all());

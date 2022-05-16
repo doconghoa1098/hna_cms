@@ -1,50 +1,52 @@
 @extends('layouts.app')
 
 @section('content')
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <form class="d-flex">
-                <input class="form-control me-2" name="keyword" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h3 class="mb-2 text-gray-800">Products Table</h3>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex justify-content-between">
+            <form class="d-sm-inline-block form-inline mr-auto my-2 my-md-0 ">
+                <div class="input-group">
+                    <div class="form-group">
+                        <input type="search" class="form-control form-outline" placeholder="Search of category" aria-label="Search" name="keyword" value="">
+                    </div>
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit"> <i class="fas fa-search fa-sm"></i> </button>
+                    </div>
+                </div>
             </form>
-            <button class="btn btn-info">
-                <a href="{{ route('categories.create') }}">Add News</a>
-            </button>
+            <a href="{{ route('categories.create') }}" class="btn btn-danger">CREATE</a>
         </div>
-    </nav>
-    @if( session('message') != null)
-            <div class="text-danger">{{ session('message') }}</div>
-        @endif
-        @if( session('success' ))
-            <div class="alert alert-success text-white" role="alert">
-                {{ session('success') }}
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="col-sm-1">No.</th>
+                            <th class="col-sm-3">Name</th>
+                            <th class="col-sm-3">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($categories as $category)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $category->name }}</td>
+                            <td>
+                                <a href="{{ asset('categories/'.$category->id) }}" class="btn btn-success"><i class="fa fa-edit"></i> Detail</a>
+                                <a href="{{ asset('categories/'.$category->id.'/edit') }}" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <nav class="float-right">
+                    {{ $categories->links() }}
+                </nav>
             </div>
-        @endif
-    <table class="table table-hover">
-        <thead>
-            <th scope="col">Id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Parent_id</th>
-            <th scope="col">Action</th>
-        </thead>
-        <tbody>
-            @foreach ($categories as $item)
-                <tr>
-                    <td scope="row">{{ $loop->iteration }}</td>
-                    <td>{{ $item->name }}</td>
-                    <td>{{ $item->parent_id }}</td>
-                    <td>
-                        <a class="btn btn-primary" href="{{ asset('categories/'.$item->id.'/edit') }}">Edit</a>
-                        <a class="btn btn-success" href="{{ asset('categories/'.$item->id) }}">Detail</a>
-                        <form action="{{ route('categories.destroy', ['category' => $item->id]) }}" method="post">
-                            @csrf
-                            @method( 'Delete' )
-                            <input type="submit" class="btn btn-danger"  value="Delete" onclick="return confirm('Do you really want to delete?')"/>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-    {{ $categories->links() }}
+        </div>
+    </div>
+</div>
 @endsection

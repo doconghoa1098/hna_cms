@@ -20,7 +20,7 @@
                 <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
                 </div>
                 <div class="col-auto">
-                    <img src="{{asset('storage/' . $item->image)}}" width="120">
+                    <img src="{{ \App\Http\Helpers\Helper::getPath('news',$item->image) }}" width="120">
                 </div>
             </div>
             </div>
@@ -37,19 +37,17 @@
         @foreach($users as $item)
         <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ $item->name }}</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $item->isAdmin($item->role) }}</div>
-                        </div>
-                        <div class="col-auto">
-                            <img src="{{ \App\Http\Helpers\Helper::getPath('users',$item->image) }}" width="120">
-                        </div>
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ $item->name }}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $item->isAdmin($item->role) }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <img src="{{ \App\Http\Helpers\Helper::getPath('users',$item->image) }}" width="120">
                     </div>
                 </div>
-            </div>
             </div>
         </div>
         </div>
@@ -72,7 +70,7 @@
                 <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $item->price }}</div>
                 </div>
                 <div class="col-auto">
-                    <img src="{{asset('storage/' . $item->image)}}" width="120">
+                    <img src="{{ \App\Http\Helpers\Helper::getPath('products',$item->image) }}" width="120">
                 </div>
             </div>
             </div>

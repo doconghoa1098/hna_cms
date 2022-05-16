@@ -19,6 +19,7 @@
     <div id="app">
         @include('components.header')
         <main class="py-4">
+            @include('components.message')
             @yield('content')
         </main>
         @include('components.footer')
