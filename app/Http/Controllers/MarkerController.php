@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers\Helper;
+use App\Http\Requests\MarkerFormRequest;
 use App\Models\Maker;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,7 @@ class MarkerController extends Controller
      */
     public function create()
     {
-        //
+        return view('marker.add');
     }
 
     /**
@@ -39,9 +40,21 @@ class MarkerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MarkerFormRequest $request)
     {
-        //
+        $marker = Maker::create([
+            'name' => $request->name,
+            'code' => $request->code,
+        ]);
+
+        if ($request->hasFile('image')) {
+            $newFileName = uniqid() . '-' . $request->image->getClientOriginalName();
+            $imagePath = $request->image->storeAs(config('common.default_image_path') . 'markers', $newFileName);
+            $marker->image = str_replace(config('common.default_image_path') . 'markers', '', $imagePath);
+        }
+        $marker->save();
+
+        return redirect('/markes')->with(['message' => 'Add Success']);
     }
 
     /**

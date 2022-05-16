@@ -52,9 +52,9 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('homepage.index') }}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
+                <span>HomePage</span></a>
         </li>
 
         <!-- Divider -->
@@ -83,6 +83,14 @@
             </div>
         </li>
 
+        <!-- Nav Item - Pages News Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('news.index') }}" data-target="#collapseNews" aria-expanded="true" aria-controls="collapseNews">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>News</span>
+            </a>
+        </li>
+
         <!-- Nav Item - Pages Users Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="true" aria-controls="collapseUsers">
@@ -109,6 +117,7 @@
                 </div>
             </div>
         </li>
+
         <hr class="sidebar-divider d-none d-md-block">
 
         <!-- Sidebar Toggler (Sidebar) -->
