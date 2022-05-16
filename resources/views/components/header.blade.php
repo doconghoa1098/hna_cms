@@ -96,6 +96,19 @@
                 </div>
             </div>
         </li>
+        <!-- Nav Item - Pages Markers Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="false" aria-controls="collapseUtilities">
+                <i class="fas fa-fw fa-wrench"></i>
+                <span>Markers</span>
+            </a>
+            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar" style="">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('markers.create') }}">Add marker</a>
+                    <a class="collapse-item" href="{{ route('markers.index') }}">List markers</a>
+                </div>
+            </div>
+        </li>
         <hr class="sidebar-divider d-none d-md-block">
 
         <!-- Sidebar Toggler (Sidebar) -->
@@ -179,4 +192,4 @@
                     </li>
                 </ul>
             </nav>
-@endguest
+            @endguest
