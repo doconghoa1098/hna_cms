@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
     <!-- Page Heading -->
-    <h3 class="mb-2 text-gray-800">Categories Table</h3>
+    <h3 class="mb-2 text-gray-800">List Markers</h3>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between">
@@ -17,33 +17,41 @@
                     </div>
                 </div>
             </form>
-            <a href="{{ route('categories.create') }}" class="btn btn-danger">CREATE</a>
+            <a href="{{ route('markers.create') }}" class="btn btn-danger">CREATE</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th class="col-sm-1">No.</th>
-                            <th class="col-sm-3">Name</th>
-                            <th class="col-sm-3">Action</th>
+                            <th>ID</th>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Image</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($categories as $category)
+                        @foreach ($markers as $val)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $category->name }}</td>
+                            <td>{{ $val->id }}</td>
+                            <td>{{ $val->code }}</td>
+                            <td>{{ $val->name }}</td>
+                            <td><img src="{{ \App\Http\Helpers\Helper::getPath('markers',$val->image) }}" alt="" style="width: 100px; height: 100px"></td>
                             <td>
-                                <a href="{{ asset('categories/'.$category->id) }}" class="btn btn-success"><i class="fa fa-edit"></i> Detail</a>
-                                <a href="{{ asset('categories/'.$category->id.'/edit') }}" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                                <a class="btn btn-primary" href="{{ asset('markers/'.$val->id.'/edit') }}"><i class="fa fa-edit"></i> Edit</a>
+                                <form action="{{ route('markers.destroy', ['marker' => $val->id]) }}" method="post">
+                                    @csrf
+                                    @method('Delete')
+                                    <input type="submit" class="btn btn-success" value="Delete" onclick="return confirm('Do you really want to delete?')" />
+                                </form>
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
                 <nav class="float-right">
-                    {{ $categories->links() }}
+                    {{ $markers->links() }}
                 </nav>
             </div>
         </div>

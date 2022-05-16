@@ -2,29 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Http\Requests\CategoryFormRequest;
 use App\Http\Helpers\Helper;
+use App\Models\Maker;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class MarkerController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index(Request $request)
     {
-        $categories = Category::with('parent');
+        $keyWord = $request->input('keyword');
+        $markers = Maker::where('name', 'like', "%" . Helper::escape_like($keyWord) . "%")
+            ->latest()
+            ->paginate(config('common.default_page_size'));
 
-        $pagesize = config('common.default_page_size');
-        $categoryQuery = Category::where('name', 'like', "%" . Helper::escape_like($request->keyword) . "%");
-        $categories = $categoryQuery->paginate($pagesize);
-        $categories->appends($request->except('page'));
-
-        return view('category.index', compact('categories'));
+        return view('marker.index', compact('markers', 'keyWord'));
     }
 
     /**
@@ -34,11 +30,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categoryParents = Category::whereNull('parent_id')
-            ->with('children')
-            ->get();
-
-        return view('category.create', compact('categoryParents'));
+        //
     }
 
     /**
@@ -47,14 +39,9 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryFormRequest $request)
+    public function store(Request $request)
     {
-        $category = new Category();
-        $category->fill($request->all());
-
-        $category->save();
-
-        return redirect(route('categories.index'))->with(['message' => 'Create Success']);
+        //
     }
 
     /**
