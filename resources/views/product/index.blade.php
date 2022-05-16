@@ -37,7 +37,7 @@
                     </div>
                 </div>
             </form>
-            <a href="#" class="btn btn-danger">CREATE</a>
+            <a href="{{ route('products.create') }}" class="btn btn-danger"><i class="fa-solid fa-circle-plus"></i> CREATE</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -61,7 +61,7 @@
                                 <img src="{{asset('storage/images/products/' . $product->image)}}" class="img-fluid">
                             </td>
                             <td>
-                                <a href="#" class="btn btn-success"><i class="fa fa-edit"></i> Detail</a>
+                                <a href="#" class="btn btn-success"><i class="fa fa-eye"></i> Detail</a>
                                 <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
                             </td>
                         </tr>

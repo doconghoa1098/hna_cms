@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers\Helper;
+use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Maker;
@@ -20,8 +21,7 @@ class ProductController extends Controller
     {
         $keyword = $request->keyword;
         $products = Product::where('name', 'like', "%" . Helper::escape_like($keyword) . "%");
-        if ($request->get('maker'))
-        {
+        if ($request->get('maker')) {
             $products->where('maker_id', $request->maker);
         }
 
@@ -40,7 +40,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $makers = Maker::all();
+        $categories = Category::all();
+
+        return view('product.add', compact('makers', 'categories'));
     }
 
     /**
@@ -49,9 +52,11 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
+        $this->insertOrUpdate($request);
+
+        return redirect()->back()->with(['message' => 'Create Product Success']);
     }
 
     /**
@@ -97,5 +102,22 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function insertOrUpdate($request, $id = '')
+    {
+        $product = empty($id) ? new Product() : Product::findOrFail($id);
+
+        $product->fill($request->all());
+        if ($request->hasFile('product_image')) {
+            $newFileName = uniqid() . '-' . $request->product_image->getClientOriginalName();
+            $request->product_image->storeAs(config('common.default_image_path') . 'products', $newFileName);
+            $product->image = $newFileName;
+        }
+        $product->save();
+          
+        foreach ($request->category as $category_id) {
+            $product->category()->attach($category_id);
+        }
     }
 }
