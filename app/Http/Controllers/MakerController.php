@@ -65,7 +65,9 @@ class MakerController extends Controller
      */
     public function show($id)
     {
-        //
+        $maker = Maker::findOrFail($id);
+
+        return view('maker.show', compact('maker'));
     }
 
     /**

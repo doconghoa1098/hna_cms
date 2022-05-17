@@ -40,12 +40,6 @@
                             <td><img src="{{ \App\Http\Helpers\Helper::getPath('makers',$val->image) }}" alt="" style="width: 100px; height: 100px"></td>
                             <td>
                                 <a class="btn btn-primary" href="{{ route('makers.show', ['maker' => $val->id]) }}"><i class="fa fa-edit"></i> Detail</a>
-                                <a class="btn btn-primary" href="{{ asset('makers/'.$val->id.'/edit') }}"><i class="fa fa-edit"></i> Edit</a>
-                                <form action="{{ route('makers.destroy', ['maker' => $val->id]) }}" method="post">
-                                    @csrf
-                                    @method('Delete')
-                                    <input type="submit" class="btn btn-success" value="Delete" onclick="return confirm('Do you really want to delete?')" />
-                                </form>
                             </td>
                         </tr>
                         @endforeach
