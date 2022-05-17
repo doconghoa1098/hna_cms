@@ -114,7 +114,7 @@ class CategoryController extends Controller
         return redirect(route('categories.index'))->with(['message' => 'Delete Success']);
     }
 
-    public function insertOrUpdate($request, $id = '')
+    public function insertOrUpdate(CategoryFormRequest $request, $id = '')
     {
         $category = empty($id) ? new Category() : Category::findOrFail($id);
         $category->fill($request->all());
