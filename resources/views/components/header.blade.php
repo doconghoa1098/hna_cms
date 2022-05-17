@@ -110,7 +110,7 @@
                 <i class="fas fa-fw fa-wrench"></i>
                 <span>Markers</span>
             </a>
-            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar" style="">
+            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('markers.create') }}">Add marker</a>
                     <a class="collapse-item" href="{{ route('markers.index') }}">List markers</a>
