@@ -49,10 +49,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryFormRequest $request)
     {
-        $category = new Category();
-        $category->fill($request->all());
-
-        $category->save();
+        $this->insertOrUpdate($request);
 
         return redirect(route('categories.index'))->with(['message' => 'Create Success']);
     }
@@ -65,7 +62,9 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $category = Category::where('id', $id)->with('children')->first();
+
+        return view('category.show', compact('category'));
     }
 
     /**
@@ -76,7 +75,16 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $categoryParentFind = Category::where('id', $id)
+            ->with('children')
+            ->first();
+
+        $categoryParents = Category::whereNull('parent_id')
+            ->with('children')
+            ->get();
+
+        return view('category.edit', compact('category', 'categoryParentFind', 'categoryParents'));
     }
 
     /**
@@ -86,9 +94,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryFormRequest $request, $id)
     {
-        //
+        $this->insertOrUpdate($request);
+
+        return redirect(route('categories.index'))->with(['message' => "Updated category successfully !"]);
     }
 
     /**
@@ -99,6 +109,15 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Category::findOrFail($id)->delete();
+
+        return redirect(route('categories.index'))->with(['message' => 'Delete Success']);
+    }
+
+    public function insertOrUpdate($request, $id = '')
+    {
+        $category = empty($id) ? new Category() : Category::findOrFail($id);
+        $category->fill($request->all());
+        $category->save();
     }
 }
