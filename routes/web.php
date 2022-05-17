@@ -35,6 +35,6 @@ Route::resource('products', ProductController::class);
 
 Route::resource('users', UserController::class)->middleware('verified');
 
-Route::resource('markers', MarkerController::class);
+Route::resource('makers', MakerController::class);
 
 Route::post('upload', [ContentController::class, 'upload'])->name('upload');

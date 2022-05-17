@@ -62,58 +62,70 @@
 
         <!-- Nav Item - Pages Categories Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('categories.index') }}" data-target="#collapseNews" aria-expanded="true" aria-controls="collapseNews">
-                <i class="fas fa-fw fa-cog"></i>
+            <a class="nav-link collapsed" href="{{ route('categories.index') }}" data-toggle="collapse" data-target="#collapseCategories" aria-expanded="true" aria-controls="collapseNews">
+                <i class="fa-solid fa-layer-group"></i>
                 <span>Categories</span>
             </a>
+            <div id="collapseCategories" class="collapse" aria-labelledby="headingCategories" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('categories.index') }}">List category</a>
+                    <a class="collapse-item" href="{{ route('categories.create') }}">Add category</a>
+                </div>
+            </div>
         </li>
 
         <!-- Nav Item - Pages Products Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('products.index') }}" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="true" aria-controls="collapseProducts">
-                <i class="fas fa-fw fa-wrench"></i>
+                <i class="fa-solid fa-paw"></i>
                 <span>Products</span>
             </a>
             <div id="collapseProducts" class="collapse" aria-labelledby="headingProducts" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ route('products.index') }}">Views</a>
-                    <a class="collapse-item" href="#">List</a>
-                    <a class="collapse-item" href="#">Edit</a>
+                    <a class="collapse-item" href="{{ route('products.index') }}">List product</a>
+                    <a class="collapse-item" href="{{ route('products.create') }}">Add product</a>
                 </div>
             </div>
         </li>
 
         <!-- Nav Item - Pages News Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('news.index') }}" data-target="#collapseNews" aria-expanded="true" aria-controls="collapseNews">
-                <i class="fas fa-fw fa-cog"></i>
+            <a class="nav-link collapsed" href="{{ route('news.index') }}" data-toggle="collapse" data-target="#collapseNews" aria-expanded="true" aria-controls="collapseNews">
+                <i class="fa-solid fa-newspaper"></i>
                 <span>News</span>
             </a>
-        </li>
-
-        <!-- Nav Item - Pages Users Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="true" aria-controls="collapseUsers">
-                <i class="fas fa-fw fa-wrench"></i>
-                <span>Users</span>
-            </a>
-            <div id="collapseUsers" class="collapse" aria-labelledby="headingUsers" data-parent="#accordionSidebar">
+            <div id="collapseNews" class="collapse" aria-labelledby="headingNews" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ route('users.create') }}">Add user</a>
-                    <a class="collapse-item" href="{{ route('users.index') }}">List</a>
+                    <a class="collapse-item" href="{{ route('news.index') }}">List news</a>
+                    <a class="collapse-item" href="{{ route('news.create') }}">Add news</a>
                 </div>
             </div>
         </li>
+
         <!-- Nav Item - Pages Markers Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="false" aria-controls="collapseUtilities">
-                <i class="fas fa-fw fa-wrench"></i>
+                <i class="fa-solid fa-recycle"></i>
                 <span>Makers</span>
             </a>
             <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ route('makers.create') }}">Add maker</a>
                     <a class="collapse-item" href="{{ route('makers.index') }}">List maker</a>
+                    <a class="collapse-item" href="{{ route('makers.create') }}">Add maker</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Pages Users Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('users.index') }}" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="true" aria-controls="collapseUsers">
+                <i class="fa-solid fa-users"></i>
+                <span>Users</span>
+            </a>
+            <div id="collapseUsers" class="collapse" aria-labelledby="headingUsers" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('users.index') }}">List user</a>
+                    <a class="collapse-item" href="{{ route('users.create') }}">Add user</a>
                 </div>
             </div>
         </li>
@@ -123,7 +135,6 @@
         <div class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
-
     </ul>
     <!-- End of Sidebar -->
 

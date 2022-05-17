@@ -4,7 +4,7 @@
 <div class="card mb-3" style="width: 50rem;">
     <div class="row g-0">
         <div class="col-md-4">
-            <img src="{{ asset('storage/images/news' . $news->image) }}" class="card-img-top" alt="" width="">
+            <img src="{{ \App\Http\Helpers\Helper::getPath('news',$news->image) }}" class="card-img-top" alt="" width="">
         </div>
         <div class="col-md-8">
             <div class="card-body">
