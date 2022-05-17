@@ -5,7 +5,7 @@ use App\Models\News;
 use App\Models\User;
 use App\Http\Controllers\NewController;
 use App\Http\Controllers\HomePageController;
-use App\Http\Controllers\MarkerController;
+use App\Http\Controllers\MakerController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -37,4 +37,4 @@ Route::resource('products', ProductController::class);
 
 Route::resource('users', UserController::class)->middleware('verified');
 
-Route::resource('makers', MarkerController::class);
+Route::resource('makers', MakerController::class);

@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers\Helper;
-use App\Http\Requests\MarkerFormRequest;
+use App\Http\Requests\MakerFormRequest;
 use App\Models\Maker;
 use Illuminate\Http\Request;
 
-class MarkerController extends Controller
+class MakerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,11 +17,11 @@ class MarkerController extends Controller
     public function index(Request $request)
     {
         $keyWord = $request->input('keyword');
-        $markers = Maker::where('name', 'like', "%" . Helper::escape_like($keyWord) . "%")
+        $makers = Maker::where('name', 'like', "%" . Helper::escape_like($keyWord) . "%")
             ->latest()
             ->paginate(config('common.default_page_size'));
 
-        return view('marker.index', compact('markers', 'keyWord'));
+        return view('maker.index', compact('makers', 'keyWord'));
     }
 
     /**
@@ -31,7 +31,7 @@ class MarkerController extends Controller
      */
     public function create()
     {
-        return view('marker.add');
+        return view('maker.add');
     }
 
     /**
@@ -40,19 +40,19 @@ class MarkerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MarkerFormRequest $request)
+    public function store(MakerFormRequest $request)
     {
-        $marker = Maker::create([
+        $maker = Maker::create([
             'name' => $request->name,
             'code' => $request->code,
         ]);
 
         if ($request->hasFile('image')) {
             $newFileName = uniqid() . '-' . $request->image->getClientOriginalName();
-            $imagePath = $request->image->storeAs(config('common.default_image_path') . 'markers', $newFileName);
-            $marker->image = str_replace(config('common.default_image_path') . 'markers', '', $imagePath);
+            $imagePath = $request->image->storeAs(config('common.default_image_path') . 'makers', $newFileName);
+            $maker->image = str_replace(config('common.default_image_path') . 'makers', '', $imagePath);
         }
-        $marker->save();
+        $maker->save();
 
         return redirect('/makers')->with(['message' => 'Add Success']);
     }

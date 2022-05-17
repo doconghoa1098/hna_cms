@@ -1,5 +1,5 @@
 @if( session('message') != null)
-<div class="text-danger">{{ session('message') }}</div>
+<div class="alert alert-success text-white">{{ session('message') }}</div>
 @endif
 
 @if( session('success' ))
