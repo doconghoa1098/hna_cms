@@ -9,14 +9,14 @@
             @method('PUT')
             @csrf
             <div class="form-group row">
-                <input type="text" name="name" value="{{ $maker->name }}" class="form-control form-control-user" id="exampleFirstName" placeholder="Name">
+                <input type="text" name="name" value="{{ $maker->name }}" class="form-control form-control-user" placeholder="Name">
             </div>
             <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
                     <input type="text" name="code" value="{{ $maker->code }}" class="form-control form-control-user" placeholder="Code">
                 </div>
                 <div class="col-sm-6">
-                <img src="{{ asset(\App\Http\Helpers\Helper::getPath('makers',$maker->image)) }}" alt="" style="width: 100px; height: 100px">
+                <img src="{{ asset(\App\Http\Helpers\Helper::getPath('makers',$maker->image)) }}" style="width: 100px; height: 100px">
                     <label for="exampleFormControlFile1">Avatar</label>
                     <input type="file" class="form-control-file" id="exampleFormControlFile1" name="image">
                 </div>
