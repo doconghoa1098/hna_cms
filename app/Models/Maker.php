@@ -10,4 +10,8 @@ class Maker extends Model
     use HasFactory;
 
     protected $table = 'makers';
+    protected $fillable = [
+        'name',
+        'code'
+    ];
 }

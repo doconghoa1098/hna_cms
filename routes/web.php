@@ -3,7 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\NewController;
 use App\Http\Controllers\HomePageController;
-use App\Http\Controllers\MarkerController;
+use App\Http\Controllers\MakerController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -35,4 +35,4 @@ Route::resource('products', ProductController::class);
 
 Route::resource('users', UserController::class)->middleware('verified');
 
-Route::resource('markers', MarkerController::class);
+Route::resource('makers', MakerController::class);
