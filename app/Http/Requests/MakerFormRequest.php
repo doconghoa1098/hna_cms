@@ -29,7 +29,7 @@ class MakerFormRequest extends FormRequest
             'code' => [
                 'required',
                 'regex:/[A-Z0-9]$/',
-                Rule::unique('makers')->ignore($this->id)
+                Rule::unique('makers')->ignore($this->maker)
             ],
             'image' => [
                 "mimes:jpg,bmp,png,gif",
@@ -44,7 +44,6 @@ class MakerFormRequest extends FormRequest
             'code.required' => 'Code không được để trống',
             'code.regex' => 'Mã code không hợp lệ',
             'image.mimes' => 'image phải thuộc jpg,bmp,png,gif',
-            
         ];
     }
 }

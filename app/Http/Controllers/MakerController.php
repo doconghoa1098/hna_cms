@@ -78,7 +78,9 @@ class MakerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $maker = Maker::findOrFail($id);
+
+        return view('maker.edit', compact('maker'));
     }
 
     /**
@@ -88,9 +90,23 @@ class MakerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MakerFormRequest $request, $id)
     {
-        //
+        $maker = Maker::findOrFail($id);
+
+        $maker->fill([
+            'code' => $request->code,
+            'name' => $request->name,
+        ]);
+
+        if ($request->hasFile('image')) {
+            $newFileName = uniqid() . '-' . $request->image->getClientOriginalName();
+            $imagePath = $request->image->storeAs(config('common.default_image_path') . 'makers', $newFileName);
+            $maker->image = str_replace(config('common.default_image_path') . 'makers', '', $imagePath);
+        }
+        $maker->save();
+
+        return redirect('/makers')->with(['message' => 'Update Success']);
     }
 
     /**
@@ -101,6 +117,8 @@ class MakerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Maker::findOrFail($id)->delete();
+
+        return redirect('/makers')->with(['message' => 'Delete Success']);
     }
 }
