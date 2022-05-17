@@ -1,9 +1,9 @@
 @if( session('message') != null)
-<div class="alert alert-success text-white">{{ session('message') }}</div>
+<li class="alert alert-success">{{ session('message') }}</li>
 @endif
 
 @if( session('success' ))
-<div class="alert alert-success text-white" role="alert">
+<div class="alert alert-success" role="alert">
     {{ session('success') }}
 </div>
 @endif
