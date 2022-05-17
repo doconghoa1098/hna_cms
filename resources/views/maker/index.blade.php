@@ -3,21 +3,21 @@
 @section('content')
 <div class="container-fluid">
     <!-- Page Heading -->
-    <h3 class="mb-2 text-gray-800">List Markers</h3>
+    <h3 class="mb-2 text-gray-800">List Makers</h3>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between">
             <form class="d-sm-inline-block form-inline mr-auto my-2 my-md-0 ">
                 <div class="input-group">
                     <div class="form-group">
-                        <input type="search" class="form-control form-outline" placeholder="Search of category" aria-label="Search" name="keyword" value="">
+                        <input type="search" class="form-control form-outline" placeholder="Search maker" aria-label="Search" name="keyword" value="">
                     </div>
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit"> <i class="fas fa-search fa-sm"></i> </button>
                     </div>
                 </div>
             </form>
-            <a href="{{ route('markers.create') }}" class="btn btn-danger">CREATE</a>
+            <a href="{{ route('makers.create') }}" class="btn btn-danger">CREATE</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -32,26 +32,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($markers as $val)
+                        @foreach ($makers as $val)
                         <tr>
                             <td>{{ $val->id }}</td>
                             <td>{{ $val->code }}</td>
                             <td>{{ $val->name }}</td>
-                            <td><img src="{{ \App\Http\Helpers\Helper::getPath('markers',$val->image) }}" alt="" style="width: 100px; height: 100px"></td>
+                            <td><img src="{{ \App\Http\Helpers\Helper::getPath('makers',$val->image) }}" alt="" style="width: 100px; height: 100px"></td>
                             <td>
-                                <a class="btn btn-primary" href="{{ asset('markers/'.$val->id.'/edit') }}"><i class="fa fa-edit"></i> Edit</a>
-                                <form action="{{ route('markers.destroy', ['marker' => $val->id]) }}" method="post">
-                                    @csrf
-                                    @method('Delete')
-                                    <input type="submit" class="btn btn-success" value="Delete" onclick="return confirm('Do you really want to delete?')" />
-                                </form>
+                                <a class="btn btn-primary" href="{{ route('makers.show', ['maker' => $val->id]) }}"><i class="fa fa-edit"></i> Detail</a>
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
                 <nav class="float-right">
-                    {{ $markers->links() }}
+                    {{ $makers->links() }}
                 </nav>
             </div>
         </div>
