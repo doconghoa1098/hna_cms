@@ -21,7 +21,6 @@ use App\Http\Controllers\UserController;
 |
 */
 
-
 Auth::routes(['verify' => true]);
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

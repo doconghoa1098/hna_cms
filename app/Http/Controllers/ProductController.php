@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers\Helper;
-use App\Http\Requests\ProductRequest;
+use App\Http\Requests\ProductFormRequest;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Maker;
@@ -52,7 +52,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request)
+    public function store(ProductFormRequest $request)
     {
         $this->insertOrUpdate($request);
 
@@ -104,7 +104,7 @@ class ProductController extends Controller
         //
     }
 
-    public function insertOrUpdate($request, $id = '')
+    public function insertOrUpdate(ProductFormRequest $request, $id = '')
     {
         $product = empty($id) ? new Product() : Product::findOrFail($id);
 
@@ -115,9 +115,6 @@ class ProductController extends Controller
             $product->image = $newFileName;
         }
         $product->save();
-          
-        foreach ($request->category as $category_id) {
-            $product->category()->attach($category_id);
-        }
+        $product->category()->attach($request->category);
     }
 }
