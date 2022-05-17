@@ -28,7 +28,7 @@ class CategoryFormRequest extends FormRequest
             'name' => [
                 'required',
                 'max:55',
-                Rule::unique('categories')->ignore($this->id)
+                Rule::unique('categories')->ignore($this->category)
             ]     
         ];
         return $formRules;
