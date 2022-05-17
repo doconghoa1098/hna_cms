@@ -6,6 +6,7 @@ class Helper
 {
     public static function getPath($path, $imagePath)
     {
+        
         return asset('storage/images/' . $path . '/' . $imagePath);
     }
 
@@ -13,6 +14,7 @@ class Helper
     {
         $search = array('%', '_');
         $replace   = array('\%', '\_');
+
         return str_replace($search, $replace, $string);
     } 
 }
