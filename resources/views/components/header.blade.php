@@ -110,7 +110,7 @@
                 <i class="fas fa-fw fa-wrench"></i>
                 <span>Makers</span>
             </a>
-            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar" style="">
+            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('makers.create') }}">Add maker</a>
                     <a class="collapse-item" href="{{ route('makers.index') }}">List maker</a>

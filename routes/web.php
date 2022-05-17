@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ContentController;
 use App\Http\Controllers\NewController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\MakerController;
@@ -20,7 +21,6 @@ use App\Http\Controllers\UserController;
 |
 */
 
-
 Auth::routes(['verify' => true]);
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -35,4 +35,6 @@ Route::resource('products', ProductController::class);
 
 Route::resource('users', UserController::class)->middleware('verified');
 
-Route::resource('makers', MakerController::class);
+Route::resource('markers', MarkerController::class);
+
+Route::post('upload', [ContentController::class, 'upload'])->name('upload');
