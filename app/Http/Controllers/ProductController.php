@@ -67,7 +67,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::with('category')->findOrFail($id);   
+
+        return view('product.show', compact('product'));
     }
 
     /**
@@ -107,7 +109,9 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Product::findOrFail($id)->delete();
+
+        return redirect(route('products.index'))->with(['message' => 'Delete product success']);
     }
 
     public function insertOrUpdate(ProductFormRequest $request, $id = '')
