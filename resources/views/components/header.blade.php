@@ -1,18 +1,4 @@
-@guest
-<ul class="navbar-nav ms-auto">
-    @if (Route::has('login'))
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-    </li>
-    @endif
-
-    @if (Route::has('register'))
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-    </li>
-    @endif
-</ul>
-@else
+@auth
 <!-- Logout Modal-->
 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -26,10 +12,10 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <a class="btn btn-primary" href="{{ route('logoutUser') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     Logout
                 </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                <form id="logout-form" action="{{ route('logoutUser') }}" method="POST" class="d-none">
                     @csrf
                 </form>
             </div>
@@ -190,7 +176,7 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
-                            <img class="img-profile rounded-circle" src="https://tivago.vn/public/upload/images/me-ami-1.gif">
+                            <img class="img-profile rounded-circle" src="{{ \App\Http\Helpers\Helper::getPath('users',Auth::user()->image) }}">
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -211,4 +197,4 @@
                     </li>
                 </ul>
             </nav>
-            @endguest
+            @endauth
