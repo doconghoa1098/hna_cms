@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers\Helper;
+use App\Http\Requests\ProductFormRequest;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Maker;
@@ -20,6 +21,7 @@ class ProductController extends Controller
     {
         $keyword = $request->keyword;
         $products = Product::where('name', 'like', "%" . Helper::escape_like($keyword) . "%");
+
         if ($request->get('maker')) 
         {
             $products->where('maker_id', $request->maker);
@@ -40,7 +42,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $makers = Maker::all();
+        $categories = Category::all();
+
+        return view('product.add', compact('makers', 'categories'));
     }
 
     /**
@@ -49,9 +54,11 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductFormRequest $request)
     {
-        //
+        $this->insertOrUpdate($request);
+
+        return redirect()->back()->with(['message' => 'Create Product Success']);
     }
 
     /**
@@ -62,7 +69,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::with('category')->findOrFail($id);   
+
+        return view('product.show', compact('product'));
     }
 
     /**
@@ -73,7 +82,11 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::with('category')->findOrFail($id);
+        $makers = Maker::all();
+        $categories = Category::all();
+
+        return view('product.edit', compact('product', 'makers', 'categories'));
     }
 
     /**
@@ -83,9 +96,11 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductFormRequest $request, $id)
     {
-        //
+        $this->insertOrUpdate($request, $id);
+
+        return redirect(route('products.index'))->with(['message' => "Updated product successfully !"]);
     }
 
     /**
@@ -96,6 +111,22 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Product::findOrFail($id)->delete();
+
+        return redirect(route('products.index'))->with(['message' => 'Delete product success']);
+    }
+
+    public function insertOrUpdate(ProductFormRequest $request, $id = '')
+    {
+        $product = empty($id) ? new Product() : Product::findOrFail($id);
+
+        $product->fill($request->all());
+        if ($request->hasFile('product_image')) {
+            $newFileName = uniqid() . '-' . $request->product_image->getClientOriginalName();
+            $request->product_image->storeAs(config('common.default_image_path') . 'products', $newFileName);
+            $product->image = $newFileName;
+        }
+        $product->save();
+        $product->category()->attach($request->category);
     }
 }

@@ -3,14 +3,22 @@
 @section('content')
 <div class="container-fluid">
     <!-- Page Heading -->
-    <h3 class="mb-2 text-gray-800">Products Table</h3>
+    <div class="d-flex justify-content-between">
+        <h3 class="mb-2 text-gray-800">Products Table</h3>
+        <h6 aria-label="breadcrumb">
+            <ol class="breadcrumb bg-light">
+                <li class="breadcrumb-item"><a href="javascript: void(0);">Products</a></li>
+                <li class="breadcrumb-item active">List</li>
+            </ol>
+        </h6>
+    </div>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between">
             <form class="d-sm-inline-block form-inline mr-auto my-2 my-md-0 ">
                 <div class="input-group">
                     <div class="form-group">
-                        <input type="search" class="form-control form-outline" placeholder="Search of product" aria-label="Search" name="keyword" value="{{ $keyword }}">
+                        <input type="search" class="form-control" placeholder="Search of product" aria-label="Search" name="keyword" value="{{ $keyword }}">
                     </div>
                     <div class="form-group">
                         <select name="maker" class="form-control">
@@ -37,7 +45,9 @@
                     </div>
                 </div>
             </form>
-            <a href="#" class="btn btn-danger">CREATE</a>
+            <div>
+                <a href="{{ route('products.create') }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-circle-plus"></i> CREATE</a>
+            </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -58,11 +68,11 @@
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->code }}</td>
                             <td>
-                                <img src="{{asset('storage/images/products/' . $product->image)}}" class="img-fluid">
+                                <img src="{{ \App\Http\Helpers\Helper::getPath('products', $product->image) }}" class="img-fluid">
                             </td>
                             <td>
-                                <a href="#" class="btn btn-success"><i class="fa fa-edit"></i> Detail</a>
-                                <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="{{ route('products.show', ['product' => $product->id]) }}" class="btn btn-success btn-sm"><i class="fa fa-eye"></i> Detail</a>
+                                <a href="{{ route('products.edit', ['product' => $product->id]) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
                             </td>
                         </tr>
                         @endforeach
