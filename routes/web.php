@@ -23,18 +23,21 @@ use App\Http\Controllers\UserController;
 
 Auth::routes(['verify' => true]);
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::prefix('/')->middleware('verified')->group(function() {
 
-Route::get('homepage', [HomePageController::class, 'index'])->name('homepage.index');
+    Route::get('/', [HomePageController::class, 'index'])->name('homepage.index');
 
-Route::resource('categories', CategoryController::class);
+    Route::resource('categories', CategoryController::class);
+    
+    Route::resource('news', NewController::class)->middleware('authorization:Admin');
+    
+    Route::resource('products', ProductController::class);
+    
+    Route::resource('users', UserController::class)->middleware('authorization:Admin');
+    
+    Route::resource('makers', MakerController::class);
+    
+    Route::post('upload', [ContentController::class, 'upload'])->name('upload');
 
-Route::resource('news', NewController::class);
-
-Route::resource('products', ProductController::class);
-
-Route::resource('users', UserController::class)->middleware('verified');
-
-Route::resource('makers', MakerController::class);
-
-Route::post('upload', [ContentController::class, 'upload'])->name('upload');
+    Route::get('logout',[LoginController::class,'logout'])->name('logoutUser');
+});

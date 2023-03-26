@@ -67,7 +67,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::with('category')->findOrFail($id);   
+
+        return view('product.show', compact('product'));
     }
 
     /**
@@ -78,7 +80,11 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::with('category')->findOrFail($id);
+        $makers = Maker::all();
+        $categories = Category::all();
+
+        return view('product.edit', compact('product', 'makers', 'categories'));
     }
 
     /**
@@ -88,9 +94,11 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductFormRequest $request, $id)
     {
-        //
+        $this->insertOrUpdate($request, $id);
+
+        return redirect(route('products.index'))->with(['message' => "Updated product successfully !"]);
     }
 
     /**
@@ -101,7 +109,9 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Product::findOrFail($id)->delete();
+
+        return redirect(route('products.index'))->with(['message' => 'Delete product success']);
     }
 
     public function insertOrUpdate(ProductFormRequest $request, $id = '')

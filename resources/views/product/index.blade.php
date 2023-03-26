@@ -71,8 +71,8 @@
                                 <img src="{{ \App\Http\Helpers\Helper::getPath('products', $product->image) }}" class="img-fluid">
                             </td>
                             <td>
-                                <a href="#" class="btn btn-success btn-sm"><i class="fa fa-eye"></i> Detail</a>
-                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="{{ route('products.show', ['product' => $product->id]) }}" class="btn btn-success btn-sm"><i class="fa fa-eye"></i> Detail</a>
+                                <a href="{{ route('products.edit', ['product' => $product->id]) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
                             </td>
                         </tr>
                         @endforeach
