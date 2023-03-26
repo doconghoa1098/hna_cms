@@ -21,7 +21,9 @@ class ProductController extends Controller
     {
         $keyword = $request->keyword;
         $products = Product::where('name', 'like', "%" . Helper::escape_like($keyword) . "%");
-        if ($request->get('maker')) {
+
+        if ($request->get('maker')) 
+        {
             $products->where('maker_id', $request->maker);
         }
 
